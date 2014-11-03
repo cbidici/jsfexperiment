@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- Flow scope variable -->
+	<var name="user" class="com.cbstd.jsfexperiment.entity.User" />
+
+	<view-state id="welcome" view="welcome.xhtml" model="user">
+		<transition on="newUser" to="signUp" />
+		<transition on="signIn" to="finish">
+			<evaluate expression="loginController.login(user)" />
+		</transition>
+	</view-state>
+	
+	<view-state id="signUp" view="signup.xhtml" model="user">
+		<transition on="backToSignIn" to="welcome" />
+		<transition on="signUp" to="authentication">
+			<evaluate expression="mainController.signUp(user)" />
+		</transition>
+	</view-state>
+	
+	<action-state id="authentication">
+		<evaluate expression="loginController.login(user)" />
+		<transition on="yes" to="finish" />
+		<transition on="no" to="welcome" />
+	</action-state>
+	
+	<end-state id="finish" view="externalRedirect:account" />
+
+</flow>

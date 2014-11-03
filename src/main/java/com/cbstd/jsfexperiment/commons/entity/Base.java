@@ -1,0 +1,31 @@
+package com.cbstd.jsfexperiment.commons.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+/**
+ * Common base entity for entities
+ * @author cbidici
+ *
+ */
+@MappedSuperclass
+public class Base implements Serializable {
+
+	private static final long serialVersionUID = -2372463553294602876L;
+	
+	@Id
+	@GeneratedValue
+	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+}
